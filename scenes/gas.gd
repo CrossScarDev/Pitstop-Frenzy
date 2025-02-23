@@ -4,7 +4,7 @@ var dragging = false
 var drag_offset: Vector2
 
 @export var car: Node2D
-@export var overlay: ColorRect
+@export var overlay: Sprite2D
 @export var main: Node2D
 
 var start_pos: Vector2
@@ -20,9 +20,11 @@ func _process(delta: float) -> void:
 		if car.gas > 100:
 			car.gas = 100
 	
-	overlay.get_node("Progress").size.y = (car.gas / 100) * (overlay.size.y - 10)
-	overlay.get_node("Progress").position.y = 5
-	overlay.get_node("Progress").color = lerp(Color(1, 0, 0), Color(0.25, 1, 0), car.gas / 100)
+	var progress: ProgressBar = overlay.get_node("Progress")
+	progress.value = car.gas
+	var stylebox = StyleBoxFlat.new()
+	progress.add_theme_stylebox_override("fill", stylebox)
+	stylebox.bg_color = lerp(Color(1, 0, 0), Color(0.25, 0.75, 0), car.gas / 100)
 
 
 func _input(event: InputEvent) -> void:

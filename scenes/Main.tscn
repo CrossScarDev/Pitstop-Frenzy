@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dcaqlhkd6rkop"]
+[gd_scene load_steps=14 format=3 uid="uid://dcaqlhkd6rkop"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_b1qa4"]
 [ext_resource type="PackedScene" uid="uid://cnwebh5tk7yvk" path="res://scenes/Car.tscn" id="1_bfyfi"]
@@ -6,16 +6,19 @@
 [ext_resource type="Script" path="res://scripts/movable-piece.gd" id="2_v6ris"]
 [ext_resource type="Texture2D" uid="uid://bb7urtxi38u0m" path="res://assets/backround.png" id="4_omqg2"]
 [ext_resource type="Texture2D" uid="uid://c6e1dti7qq5cn" path="res://assets/trash.png" id="5_bxhyr"]
+[ext_resource type="Texture2D" uid="uid://d1i2bgl004ata" path="res://assets/toolbar.png" id="5_yna8l"]
 [ext_resource type="PackedScene" uid="uid://ckufi0h1yhakl" path="res://scenes/explosion.tscn" id="7_2nk5p"]
 [ext_resource type="Texture2D" uid="uid://cigbt4vnhuwe5" path="res://assets/gas_can.png" id="8_ctkee"]
 [ext_resource type="Texture2D" uid="uid://ddvoqna8f8fi3" path="res://assets/progress.webp" id="9_5twwe"]
 [ext_resource type="Texture2D" uid="uid://dwq0xj4q051ya" path="res://assets/progress-bg.webp" id="9_26hck"]
 [ext_resource type="Script" path="res://scenes/gas.gd" id="9_kvibd"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("car", "replacements", "removed_parts", "explosion", "death_screen", "gas_can", "timer", "score_label")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpo4i"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("car", "removed_parts", "explosion", "death_screen", "gas_can", "timer", "score_label")]
 script = ExtResource("1_b1qa4")
 car = NodePath("Car")
-replacements = NodePath("Replacements")
 removed_parts = NodePath("Removed Parts")
 explosion = NodePath("Explosion")
 death_screen = NodePath("Death Screen")
@@ -45,16 +48,13 @@ texture = ExtResource("5_bxhyr")
 position = Vector2(-825, 220)
 APPROACH_FRICTION = 0.9
 
-[node name="Replacements" type="ColorRect" parent="."]
-offset_left = 253.0
-offset_top = 49.0
-offset_right = 895.0
-offset_bottom = 155.0
-color = Color(0, 0, 0, 1)
+[node name="Replacements" type="Sprite2D" parent="."]
+position = Vector2(598, 87)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_yna8l")
 
 [node name="Tire 1" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can", "main")]
-position = Vector2(50, 52)
-scale = Vector2(0.482456, 0.482456)
+position = Vector2(-284, 20)
 texture = ExtResource("2_bj7c8")
 script = ExtResource("2_v6ris")
 car = NodePath("../../Car")
@@ -64,8 +64,7 @@ trash_can = NodePath("../../Trashcan")
 main = NodePath("../..")
 
 [node name="Tire 2" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can", "main")]
-position = Vector2(124, 53)
-scale = Vector2(0.517544, 0.517544)
+position = Vector2(-158, 22)
 texture = ExtResource("2_bj7c8")
 script = ExtResource("2_v6ris")
 car = NodePath("../../Car")
@@ -105,8 +104,8 @@ main = NodePath("../..")
 [node name="reset_timer" type="Timer" parent="."]
 
 [node name="Gas Can" type="Sprite2D" parent="." node_paths=PackedStringArray("car", "overlay", "main")]
-position = Vector2(451, 100)
-scale = Vector2(0.311765, 0.311765)
+position = Vector2(585, 94)
+scale = Vector2(0.255882, 0.255882)
 texture = ExtResource("8_ctkee")
 script = ExtResource("9_kvibd")
 car = NodePath("../Car")
@@ -122,20 +121,21 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Gas" type="ColorRect" parent="Overlay"]
-layout_mode = 0
-offset_left = 1075.0
-offset_top = 16.0
-offset_right = 1121.0
-offset_bottom = 187.0
-color = Color(0, 0, 0, 1)
+[node name="Gas" type="Sprite2D" parent="Overlay"]
+clip_children = 1
+position = Vector2(1097, 66)
+scale = Vector2(0.441176, 0.441176)
+texture = ExtResource("8_ctkee")
 
-[node name="Progress" type="ColorRect" parent="Overlay/Gas"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 125.0
-offset_right = 41.0
-offset_bottom = 125.0
+[node name="Progress" type="ProgressBar" parent="Overlay/Gas"]
+offset_left = -86.0
+offset_top = -111.0
+offset_right = 86.0
+offset_bottom = 111.0
+theme_override_styles/background = SubResource("StyleBoxFlat_jpo4i")
+value = 10.0
+fill_mode = 3
+show_percentage = false
 
 [node name="Timer" type="TextureProgressBar" parent="Overlay"]
 layout_mode = 0
