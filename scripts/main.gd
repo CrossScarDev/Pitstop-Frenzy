@@ -34,12 +34,12 @@ func _process(delta: float) -> void:
 		car.nextCar = true
 		increment_timer = false
 		for replacement in replacements.get_children():
-			if (replacement.global_position.distance_to(car.get_node("Car Pieces").get_node(replacement.markerName).global_position) < 10):
-				car.get_node("Car Pieces").get_node(replacement.markerName).visible = true
+			if (replacement.global_position.distance_to(car.get_node("Car Pieces").get_node(NodePath(replacement.name)).global_position) < 10):
+				car.get_node("Car Pieces").get_node(NodePath(replacement.name)).visible = true
 				replacement.visible = false
 		for part in removed_parts.get_children():
-			if (part.global_position.distance_to(car.get_node("Car Pieces").get_node(part.markerName).global_position) < 10):
-				car.get_node("Car Pieces").get_node(part.markerName).visible = true
+			if (part.global_position.distance_to(car.get_node("Car Pieces").get_node(NodePath(part.name)).global_position) < 10):
+				car.get_node("Car Pieces").get_node(NodePath(part.name)).visible = true
 				part.visible = false
 
 
@@ -49,10 +49,10 @@ func _on_car_check_and_reset() -> void:
 	audio_player.stop()
 	audio_player.volume_db = 0
 	
-	var all_visible = true
-	for piece in car.get_node("Car Pieces").get_children():
-		if not piece.visible:
-			all_visible = false
+	var all_parts_trashed = true
+	for part in removed_parts.get_children():
+		if part.visible:
+			all_parts_trashed = false
 			break
 			
 	var all_replacements_used = true
@@ -61,7 +61,7 @@ func _on_car_check_and_reset() -> void:
 			all_replacements_used = false
 			break
 	
-	if not all_visible or not all_replacements_used or car.gas < 80:
+	if not all_parts_trashed or not all_replacements_used or car.gas < 80:
 		death("You Failed To Replace All The Parts and Refuel")
 	else:
 		score += round(timer.value)

@@ -5,7 +5,6 @@ var drag_offset: Vector2
 var canDrag = true
 
 @export var car: Node2D
-@export var markerName: String
 @export var fromCar: bool
 @export var removed_parts: Node2D
 @export var trash_can: Sprite2D
@@ -52,8 +51,8 @@ func _input(event: InputEvent) -> void:
 						canDrag = false
 	elif event is InputEventMouseMotion and dragging:
 		set_global_position(get_global_mouse_position() - drag_offset);
-		if (global_position.distance_to(car.get_node("Car Pieces").get_node(markerName).global_position) < 10):
+		if (global_position.distance_to(car.get_node("Car Pieces").get_node(NodePath(name)).global_position) < 10):
 			if not audio_player.playing:
 				audio_player.stream = click_sfx
 				audio_player.play()
-			set_global_position(car.get_node("Car Pieces").get_node(markerName).global_position)
+			set_global_position(car.get_node("Car Pieces").get_node(NodePath(name)).global_position)
