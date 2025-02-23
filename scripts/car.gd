@@ -11,6 +11,10 @@ var gas = 0
 
 signal check_and_reset
 
+@export var audio_player: AudioStreamPlayer2D
+var car_sfx = preload("res://audio/car.wav")
+
+
 func _process(delta: float) -> void:
 	if position.x < 45:
 		velocity += delta * 100
@@ -18,6 +22,10 @@ func _process(delta: float) -> void:
 		position.x += velocity
 	if oldNextCar != nextCar:
 		velocity = 0
+		audio_player.stop()
+		audio_player.volume_db = 0
+		audio_player.stream = car_sfx
+		audio_player.play(8.0)
 	if nextCar:
 		if position.x < get_viewport_rect().size.x - 350:
 			velocity += delta * 100

@@ -47,9 +47,10 @@ position = Vector2(1025, 486)
 scale = Vector2(0.323741, 0.41689)
 texture = ExtResource("5_bxhyr")
 
-[node name="Car" parent="." instance=ExtResource("1_bfyfi")]
+[node name="Car" parent="." node_paths=PackedStringArray("audio_player") instance=ExtResource("1_bfyfi")]
 position = Vector2(-825, 220)
 APPROACH_FRICTION = 0.9
+audio_player = NodePath("../AudioStreamPlayer2D")
 
 [node name="Replacements" type="Sprite2D" parent="."]
 position = Vector2(598, 87)

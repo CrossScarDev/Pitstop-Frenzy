@@ -44,6 +44,11 @@ func _process(delta: float) -> void:
 
 
 func _on_car_check_and_reset() -> void:
+	car.nextCar = false
+	await get_tree().create_timer(2).timeout
+	audio_player.stop()
+	audio_player.volume_db = 0
+	
 	var all_visible = true
 	for piece in car.get_node("Car Pieces").get_children():
 		if not piece.visible:
@@ -57,7 +62,7 @@ func _on_car_check_and_reset() -> void:
 			break
 	
 	if not all_visible or not all_replacements_used or car.gas < 80:
-		death("The Car Exploded")
+		death("You Failed To Replace All The Parts and Refuel")
 	else:
 		score += round(timer.value)
 		score_label.text = "Score: " + str(score)
@@ -66,8 +71,6 @@ func _on_car_check_and_reset() -> void:
 	$reset_timer.set_wait_time(1.0)
 	$reset_timer.set_one_shot(true)
 	$reset_timer.start()
-	
-	car.nextCar = false
 
 
 func death(message: String) -> void:
