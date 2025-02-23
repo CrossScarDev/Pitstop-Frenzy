@@ -24,10 +24,7 @@ func _process(delta: float) -> void:
 			position.x += velocity
 		else:
 			check_and_reset.emit()
-	oldNextCar = nextCar
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if not nextCar and position.x >= 45:
 		for piece: Sprite2D in $"Car Pieces".get_children():
-			if piece.get_rect().has_point(piece.to_local(event.position)):
-				piece.visible = false
+			piece.visible = false
+	oldNextCar = nextCar

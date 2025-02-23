@@ -5,6 +5,7 @@ var drag_offset: Vector2
 
 @export var car: Node2D
 @export var overlay: ColorRect
+@export var main: Node2D
 
 var start_pos: Vector2
 
@@ -26,11 +27,13 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
+		if event.pressed and not main.dragging:
 			if get_rect().has_point(to_local(event.position)):
 				dragging = true
+				main.dragging = true
 				drag_offset = get_global_mouse_position() - global_position
 		else:
 			dragging = false
+			main.dragging = false
 	elif event is InputEventMouseMotion and dragging:
 		global_position = get_global_mouse_position() - drag_offset

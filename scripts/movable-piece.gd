@@ -9,8 +9,10 @@ var canDrag = true
 @export var fromCar: bool
 @export var removed_parts: Node2D
 @export var trash_can: Sprite2D
+@export var main: Node2D
 
 var start_pos: Vector2
+
 
 func _ready() -> void:
 	start_pos = position
@@ -23,8 +25,6 @@ func _process(_delta: float) -> void:
 		if !car.get_node("Car Pieces").get_node(NodePath(name)).visible and !visible:
 			visible = true
 			global_position = car.get_node("Car Pieces").get_node(NodePath(name)).global_position
-			dragging = true
-			drag_offset = get_global_mouse_position() - global_position
 
 func _input(event: InputEvent) -> void:
 	if !canDrag:
@@ -32,12 +32,14 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and (fromCar or (!removed_parts.get_node(NodePath(name)).visible) and !car.get_node("Car Pieces").get_node(NodePath(name)).visible):
-			if event.pressed:
+			if event.pressed and not main.dragging:
 				if get_rect().has_point(to_local(event.position)):
 					dragging = true
+					main.dragging = true
 					drag_offset = get_global_mouse_position() - global_position
 			else:
 				dragging = false
+				main.dragging = false
 				if fromCar:
 					if get_rect().intersects(Rect2(to_local(trash_can.to_global(trash_can.get_rect().position)), trash_can.get_rect().size)):
 						visible = false

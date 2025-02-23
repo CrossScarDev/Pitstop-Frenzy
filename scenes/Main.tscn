@@ -48,7 +48,7 @@ offset_right = 895.0
 offset_bottom = 155.0
 color = Color(0, 0, 0, 1)
 
-[node name="Tire 1" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+[node name="Tire 1" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can", "main")]
 position = Vector2(50, 52)
 scale = Vector2(0.482456, 0.482456)
 texture = ExtResource("2_bj7c8")
@@ -57,8 +57,9 @@ car = NodePath("../../Car")
 markerName = "Tire 1"
 removed_parts = NodePath("../../Removed Parts")
 trash_can = NodePath("../../Trashcan")
+main = NodePath("../..")
 
-[node name="Tire 2" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+[node name="Tire 2" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can", "main")]
 position = Vector2(124, 53)
 scale = Vector2(0.517544, 0.517544)
 texture = ExtResource("2_bj7c8")
@@ -67,10 +68,11 @@ car = NodePath("../../Car")
 markerName = "Tire 2"
 removed_parts = NodePath("../../Removed Parts")
 trash_can = NodePath("../../Trashcan")
+main = NodePath("../..")
 
 [node name="Removed Parts" type="Node2D" parent="."]
 
-[node name="Tire 1" type="Sprite2D" parent="Removed Parts" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+[node name="Tire 1" type="Sprite2D" parent="Removed Parts" node_paths=PackedStringArray("car", "removed_parts", "trash_can", "main")]
 visible = false
 position = Vector2(233, 482)
 scale = Vector2(0.473684, 0.473684)
@@ -81,8 +83,9 @@ markerName = "Tire 1"
 fromCar = true
 removed_parts = NodePath("..")
 trash_can = NodePath("../../Trashcan")
+main = NodePath("../..")
 
-[node name="Tire 2" type="Sprite2D" parent="Removed Parts" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+[node name="Tire 2" type="Sprite2D" parent="Removed Parts" node_paths=PackedStringArray("car", "removed_parts", "trash_can", "main")]
 visible = false
 position = Vector2(389.5, 469.5)
 scale = Vector2(0.517544, 0.517544)
@@ -93,16 +96,18 @@ markerName = "Tire 2"
 fromCar = true
 removed_parts = NodePath("..")
 trash_can = NodePath("../../Trashcan")
+main = NodePath("../..")
 
 [node name="death_timer" type="Timer" parent="."]
 
-[node name="Gas Can" type="Sprite2D" parent="." node_paths=PackedStringArray("car", "overlay")]
+[node name="Gas Can" type="Sprite2D" parent="." node_paths=PackedStringArray("car", "overlay", "main")]
 position = Vector2(451, 100)
 scale = Vector2(0.311765, 0.311765)
 texture = ExtResource("8_ctkee")
 script = ExtResource("9_kvibd")
 car = NodePath("../Car")
 overlay = NodePath("../Overlay/Gas")
+main = NodePath("..")
 
 [node name="Marker2D" type="Marker2D" parent="Gas Can"]
 position = Vector2(-70.5662, -102.642)

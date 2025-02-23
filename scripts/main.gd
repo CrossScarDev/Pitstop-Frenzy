@@ -7,6 +7,8 @@ extends Node2D
 @export var death_screen: Control
 @export var gas_can: Sprite2D
 
+var dragging = false
+
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Next Car"):
