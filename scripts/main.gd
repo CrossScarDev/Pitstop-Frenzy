@@ -111,11 +111,11 @@ func death(message: String) -> void:
 	explosion.play()
 	explosion.animation_finished.connect(_explosion_animation_finished)
 	
-	if not audio_player.playing:
-		audio_player.stream = explosion_sfx
-		audio_player.volume_db = -25
-		audio_player.play()
-		audio_player.finished.connect(_reset_audio_player)
+	audio_player.stop()
+	audio_player.stream = explosion_sfx
+	audio_player.volume_db = -25
+	audio_player.play()
+	audio_player.finished.connect(_reset_audio_player)
 
 
 func _reset_audio_player() -> void:

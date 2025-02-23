@@ -206,6 +206,7 @@ theme_override_font_sizes/font_size = 24
 text = "Try Again?"
 
 [node name="Main Menu" type="Button" parent="Death Screen"]
+layout_mode = 0
 offset_left = 448.0
 offset_top = 472.0
 offset_right = 717.0
