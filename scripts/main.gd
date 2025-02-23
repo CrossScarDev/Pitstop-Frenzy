@@ -11,7 +11,7 @@ var dragging = false
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("Next Car"):
+	if Input.is_action_just_pressed("Next Car") and not explosion.visible:
 		car.nextCar = true
 		for replacement in replacements.get_children():
 			if (replacement.global_position.distance_to(car.get_node("Car Pieces").get_node(replacement.markerName).global_position) < 10):
