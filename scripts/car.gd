@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	if oldNextCar != nextCar:
 		velocity = 0
 	if nextCar:
-		if position.x < get_viewport_rect().size.x - 325:
+		if position.x < get_viewport_rect().size.x - 350:
 			velocity += delta * 100
 			position.x += velocity
 		else:
