@@ -8,12 +8,15 @@ extends Node2D
 @export var gas_can: Sprite2D
 @export var timer: TextureProgressBar
 @export var score_label: Label
+@export var high_score_label: Label
 
 var dragging = false
 
 var increment_timer = true
 
 var score: int = 0
+var high_score: int = 0
+var new_high_score = false
 
 @export var audio_player: AudioStreamPlayer2D
 var explosion_sfx = preload("res://audio/explosion.mp3")
@@ -22,6 +25,12 @@ var explosion_sfx = preload("res://audio/explosion.mp3")
 func _ready() -> void:
 	timer.max_value = Global.timer_length
 	timer.value = Global.timer_length
+	
+	if FileAccess.file_exists("user://high_score_" + str(Global.timer_length) + ".dat"):
+		var save = FileAccess.open("user://high_score_" + str(Global.timer_length) + ".dat", FileAccess.READ)
+		high_score = save.get_var()
+		high_score_label.text = "High Score: " + str(high_score)
+		save.close()
 
 
 func _process(delta: float) -> void:
@@ -65,6 +74,15 @@ func _on_car_check_and_reset() -> void:
 		death("You Failed To Replace All The Parts and Refuel")
 	else:
 		score += round(timer.value)
+		if score > high_score:
+			high_score = score
+			high_score_label.text = "High Score: " + str(high_score)
+			new_high_score = true
+			
+			var save = FileAccess.open("user://high_score_" + str(Global.timer_length) + ".dat", FileAccess.WRITE)
+			save.store_var(high_score, false)
+			save.close()
+			
 		score_label.text = "Score: " + str(score)
 	
 	$reset_timer.timeout.connect(_reset_for_next_car)
@@ -75,7 +93,7 @@ func _on_car_check_and_reset() -> void:
 
 func death(message: String) -> void:
 	set_process(false)
-	death_screen.get_node("Message").text = message + "\nYour Score: " + str(score)
+	death_screen.get_node("Message").text = message + "\nYour Score: " + str(score) + (" (New Highscore)" if new_high_score else "\nHighscore: " + str(high_score))
 	
 	explosion.visible = true
 	explosion.sprite_frames.set_animation_loop("default", false)

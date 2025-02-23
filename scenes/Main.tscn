@@ -17,7 +17,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpo4i"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("car", "replacements", "removed_parts", "explosion", "death_screen", "gas_can", "timer", "score_label", "audio_player")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("car", "replacements", "removed_parts", "explosion", "death_screen", "gas_can", "timer", "score_label", "high_score_label", "audio_player")]
 script = ExtResource("1_b1qa4")
 car = NodePath("Car")
 replacements = NodePath("Replacements")
@@ -27,6 +27,7 @@ death_screen = NodePath("Death Screen")
 gas_can = NodePath("Gas Can")
 timer = NodePath("Overlay/Timer")
 score_label = NodePath("Overlay/Score")
+high_score_label = NodePath("Overlay/HighScore")
 audio_player = NodePath("AudioStreamPlayer2D")
 
 [node name="Background" type="Control" parent="."]
@@ -166,6 +167,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Score: 0"
 
+[node name="HighScore" type="Label" parent="Overlay"]
+offset_left = 11.0
+offset_top = 107.0
+offset_right = 137.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "High Score: 0"
+
 [node name="Explosion" parent="." instance=ExtResource("7_2nk5p")]
 visible = false
 scale = Vector2(1, 1)
@@ -188,9 +198,9 @@ vertical_alignment = 1
 [node name="Button" type="Button" parent="Death Screen"]
 layout_mode = 0
 offset_left = 495.0
-offset_top = 376.0
+offset_top = 396.0
 offset_right = 667.0
-offset_bottom = 432.0
+offset_bottom = 452.0
 theme_override_font_sizes/font_size = 24
 text = "Try Again?"
 
