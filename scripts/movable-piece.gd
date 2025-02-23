@@ -47,6 +47,12 @@ func _input(event: InputEvent) -> void:
 				main.dragging = false
 				if fromCar:
 					if get_rect().intersects(Rect2(to_local(trash_can.to_global(trash_can.get_rect().position)), trash_can.get_rect().size)):
+						audio_player.stop()
+						audio_player.stream = click_sfx
+						audio_player.pitch_scale = 0.75
+						audio_player.finished.connect(_reset_audio_player)
+						audio_player.play()
+						
 						visible = false
 						canDrag = false
 	elif event is InputEventMouseMotion and dragging:
@@ -56,3 +62,8 @@ func _input(event: InputEvent) -> void:
 				audio_player.stream = click_sfx
 				audio_player.play()
 			set_global_position(car.get_node("Car Pieces").get_node(NodePath(name)).global_position)
+
+
+func _reset_audio_player() -> void:
+	audio_player.pitch_scale = 1
+	audio_player.finished.disconnect(_reset_audio_player)
