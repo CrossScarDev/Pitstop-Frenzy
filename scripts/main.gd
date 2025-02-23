@@ -22,11 +22,9 @@ func _process(delta: float) -> void:
 		if timer.value <= 0:
 			death("You Ran Out of Time")
 	
-	if Input.is_action_just_pressed("Next Car") and not explosion.visible:
+	if Input.is_action_just_pressed("Next Car") and not explosion.visible and not car.nextCar:
 		car.nextCar = true
 		increment_timer = false
-		score += ceil(timer.value)
-		score_label.text = "Score: " + str(score)
 		for replacement in replacements.get_children():
 			if (replacement.global_position.distance_to(car.get_node("Car Pieces").get_node(replacement.markerName).global_position) < 10):
 				car.get_node("Car Pieces").get_node(replacement.markerName).visible = true
@@ -52,6 +50,9 @@ func _on_car_check_and_reset() -> void:
 	
 	if not all_visible or not all_replacements_used or car.gas < 80:
 		death("The Car Exploded")
+	else:
+		score += ceil(timer.value)
+		score_label.text = "Score: " + str(score)
 	
 	$reset_timer.timeout.connect(_reset_for_next_car)
 	$reset_timer.set_wait_time(1.0)
