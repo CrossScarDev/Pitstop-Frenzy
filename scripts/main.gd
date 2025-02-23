@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var car: Node2D
-@export var replacements: ColorRect
+@export var replacements: Sprite2D
 @export var removed_parts: Node2D
 @export var explosion: AnimatedSprite2D
 @export var death_screen: Control
