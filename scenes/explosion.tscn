@@ -1,0 +1,56 @@
+[gd_scene load_steps=12 format=3 uid="uid://ckufi0h1yhakl"]
+
+[ext_resource type="Texture2D" uid="uid://bhewm6stwggwj" path="res://assets/explosion/frame0.webp" id="1_24xkm"]
+[ext_resource type="Texture2D" uid="uid://wanbofwdl1wd" path="res://assets/explosion/frame1.png" id="2_8dntx"]
+[ext_resource type="Texture2D" uid="uid://bbbi244yjrqg6" path="res://assets/explosion/frame2.png" id="3_xext6"]
+[ext_resource type="Texture2D" uid="uid://io2ty65xuj1o" path="res://assets/explosion/frame3.png" id="4_k0xwl"]
+[ext_resource type="Texture2D" uid="uid://no61cns4i1pr" path="res://assets/explosion/frame4.png" id="5_58lt8"]
+[ext_resource type="Texture2D" uid="uid://cpd7hfcexnub0" path="res://assets/explosion/frame5.png" id="6_ykepc"]
+[ext_resource type="Texture2D" uid="uid://hpov4uqdyg03" path="res://assets/explosion/frame6.png" id="7_swul1"]
+[ext_resource type="Texture2D" uid="uid://xy5vcxwj56i5" path="res://assets/explosion/frame7.png" id="8_weqny"]
+[ext_resource type="Texture2D" uid="uid://dlbxlfhwaslli" path="res://assets/explosion/frame8.png" id="9_xia0v"]
+[ext_resource type="Texture2D" uid="uid://dw1gytkkmlxmk" path="res://assets/explosion/frame9.png" id="10_yh5q8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_opmvi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_24xkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8dntx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xext6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k0xwl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_58lt8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ykepc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_swul1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_weqny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xia0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_yh5q8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="Explosion" type="AnimatedSprite2D"]
+position = Vector2(579.444, 320.5)
+scale = Vector2(0.600926, 0.600926)
+sprite_frames = SubResource("SpriteFrames_opmvi")
+frame_progress = 0.889506

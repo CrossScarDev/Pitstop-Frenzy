@@ -1,0 +1,162 @@
+[gd_scene load_steps=10 format=3 uid="uid://dcaqlhkd6rkop"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_b1qa4"]
+[ext_resource type="PackedScene" uid="uid://cnwebh5tk7yvk" path="res://scenes/Car.tscn" id="1_bfyfi"]
+[ext_resource type="Texture2D" uid="uid://wbt6yb8bbja0" path="res://assets/tire.webp" id="2_bj7c8"]
+[ext_resource type="Script" path="res://scripts/movable-piece.gd" id="2_v6ris"]
+[ext_resource type="Texture2D" uid="uid://bb7urtxi38u0m" path="res://assets/backround.png" id="4_omqg2"]
+[ext_resource type="Texture2D" uid="uid://c6e1dti7qq5cn" path="res://assets/trash.png" id="5_bxhyr"]
+[ext_resource type="PackedScene" uid="uid://ckufi0h1yhakl" path="res://scenes/explosion.tscn" id="7_2nk5p"]
+[ext_resource type="Texture2D" uid="uid://cigbt4vnhuwe5" path="res://assets/gas_can.png" id="8_ctkee"]
+[ext_resource type="Script" path="res://scenes/gas.gd" id="9_kvibd"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("car", "replacements", "removed_parts", "explosion", "death_screen", "gas_can")]
+script = ExtResource("1_b1qa4")
+car = NodePath("Car")
+replacements = NodePath("Replacements")
+removed_parts = NodePath("Removed Parts")
+explosion = NodePath("Explosion")
+death_screen = NodePath("Death Screen")
+gas_can = NodePath("Gas Can")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(577, 323)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_omqg2")
+
+[node name="Trashcan" type="Sprite2D" parent="."]
+position = Vector2(1025, 486)
+scale = Vector2(0.323741, 0.41689)
+texture = ExtResource("5_bxhyr")
+
+[node name="Car" parent="." instance=ExtResource("1_bfyfi")]
+position = Vector2(-825, 220)
+APPROACH_FRICTION = 0.9
+
+[node name="Replacements" type="ColorRect" parent="."]
+offset_left = 253.0
+offset_top = 49.0
+offset_right = 895.0
+offset_bottom = 155.0
+color = Color(0, 0, 0, 1)
+
+[node name="Tire 1" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+position = Vector2(50, 52)
+scale = Vector2(0.482456, 0.482456)
+texture = ExtResource("2_bj7c8")
+script = ExtResource("2_v6ris")
+car = NodePath("../../Car")
+markerName = "Tire 1"
+removed_parts = NodePath("../../Removed Parts")
+trash_can = NodePath("../../Trashcan")
+
+[node name="Tire 2" type="Sprite2D" parent="Replacements" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+position = Vector2(124, 53)
+scale = Vector2(0.517544, 0.517544)
+texture = ExtResource("2_bj7c8")
+script = ExtResource("2_v6ris")
+car = NodePath("../../Car")
+markerName = "Tire 2"
+removed_parts = NodePath("../../Removed Parts")
+trash_can = NodePath("../../Trashcan")
+
+[node name="Removed Parts" type="Node2D" parent="."]
+
+[node name="Tire 1" type="Sprite2D" parent="Removed Parts" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+visible = false
+position = Vector2(233, 482)
+scale = Vector2(0.473684, 0.473684)
+texture = ExtResource("2_bj7c8")
+script = ExtResource("2_v6ris")
+car = NodePath("../../Car")
+markerName = "Tire 1"
+fromCar = true
+removed_parts = NodePath("..")
+trash_can = NodePath("../../Trashcan")
+
+[node name="Tire 2" type="Sprite2D" parent="Removed Parts" node_paths=PackedStringArray("car", "removed_parts", "trash_can")]
+visible = false
+position = Vector2(389.5, 469.5)
+scale = Vector2(0.517544, 0.517544)
+texture = ExtResource("2_bj7c8")
+script = ExtResource("2_v6ris")
+car = NodePath("../../Car")
+markerName = "Tire 2"
+fromCar = true
+removed_parts = NodePath("..")
+trash_can = NodePath("../../Trashcan")
+
+[node name="death_timer" type="Timer" parent="."]
+
+[node name="Gas Can" type="Sprite2D" parent="." node_paths=PackedStringArray("car", "overlay")]
+position = Vector2(451, 100)
+scale = Vector2(0.311765, 0.311765)
+texture = ExtResource("8_ctkee")
+script = ExtResource("9_kvibd")
+car = NodePath("../Car")
+overlay = NodePath("../Overlay/Gas")
+
+[node name="Marker2D" type="Marker2D" parent="Gas Can"]
+position = Vector2(-70.5662, -102.642)
+
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Gas" type="ColorRect" parent="Overlay"]
+layout_mode = 0
+offset_left = 1075.0
+offset_top = 16.0
+offset_right = 1121.0
+offset_bottom = 187.0
+color = Color(0, 0, 0, 1)
+
+[node name="Progress" type="ColorRect" parent="Overlay/Gas"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 125.0
+offset_right = 41.0
+offset_bottom = 125.0
+
+[node name="Explosion" parent="." instance=ExtResource("7_2nk5p")]
+visible = false
+scale = Vector2(1, 1)
+
+[node name="Death Screen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Message" type="Label" parent="Death Screen"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 1150.0
+offset_bottom = 644.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "The Car Exploded.
+You Failed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Death Screen"]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 376.0
+offset_right = 667.0
+offset_bottom = 432.0
+theme_override_font_sizes/font_size = 24
+text = "Try Again?"
+
+[connection signal="check_and_reset" from="Car" to="." method="_on_car_check_and_reset"]
+[connection signal="pressed" from="Death Screen/Button" to="." method="_on_play_again_pressed"]

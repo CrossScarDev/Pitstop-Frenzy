@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnwebh5tk7yvk"]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="1_fu3hw"]
+[ext_resource type="Texture2D" uid="uid://g3owdxg10i8t" path="res://assets/car.webp" id="2_nie0m"]
+[ext_resource type="Texture2D" uid="uid://wbt6yb8bbja0" path="res://assets/tire.webp" id="3_6s8ed"]
+
+[node name="Car" type="Node2D"]
+script = ExtResource("1_fu3hw")
+
+[node name="Texture" type="Sprite2D" parent="."]
+position = Vector2(539, 300)
+scale = Vector2(0.578002, 0.578002)
+texture = ExtResource("2_nie0m")
+
+[node name="Car Pieces" type="Node2D" parent="."]
+
+[node name="Tire 1" type="Sprite2D" parent="Car Pieces"]
+position = Vector2(409, 368)
+scale = Vector2(0.471465, 0.471465)
+texture = ExtResource("3_6s8ed")
+
+[node name="Tire 2" type="Sprite2D" parent="Car Pieces"]
+position = Vector2(684, 364)
+scale = Vector2(0.516588, 0.516588)
+texture = ExtResource("3_6s8ed")
+
+[node name="Gas Valve" type="Marker2D" parent="."]
+position = Vector2(408, 330)
