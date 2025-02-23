@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://tq0c4pn8c6tr"]
+[gd_scene load_steps=7 format=3 uid="uid://tq0c4pn8c6tr"]
 
 [ext_resource type="Texture2D" uid="uid://d2d0tj6v0syld" path="res://assets/difficulty.png" id="1_coqwb"]
 [ext_resource type="Script" path="res://scripts/difficulty.gd" id="1_uqums"]
 [ext_resource type="Texture2D" uid="uid://qkyuf36oegck" path="res://assets/easy.png" id="2_3kgur"]
 [ext_resource type="Texture2D" uid="uid://q4n0skbl55qi" path="res://assets/medium.png" id="3_ocyx6"]
 [ext_resource type="Texture2D" uid="uid://doy7aanm4ffl5" path="res://assets/hard.png" id="4_qin13"]
+[ext_resource type="AudioStream" uid="uid://br6brcfvd7dmb" path="res://audio/music.mp3" id="6_diprs"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -52,6 +53,11 @@ offset_right = 1221.0
 offset_bottom = 745.0
 scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("4_qin13")
+
+[node name="Background Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_diprs")
+volume_db = 1.0
+autoplay = true
 
 [connection signal="pressed" from="Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="Medium" to="." method="_on_medium_pressed"]

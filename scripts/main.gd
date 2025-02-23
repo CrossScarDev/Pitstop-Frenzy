@@ -15,6 +15,9 @@ var increment_timer = true
 
 var score: int = 0
 
+@export var audio_player: AudioStreamPlayer2D
+var explosion_sfx = preload("res://audio/explosion.mp3")
+
 
 func _ready() -> void:
 	timer.max_value = Global.timer_length
@@ -75,6 +78,17 @@ func death(message: String) -> void:
 	explosion.sprite_frames.set_animation_loop("default", false)
 	explosion.play()
 	explosion.animation_finished.connect(_explosion_animation_finished)
+	
+	if not audio_player.playing:
+		audio_player.stream = explosion_sfx
+		audio_player.volume_db = -25
+		audio_player.play()
+		audio_player.finished.connect(_reset_audio_player)
+
+
+func _reset_audio_player() -> void:
+	audio_player.volume_db = 0
+	audio_player.finished.disconnect(_reset_audio_player)
 
 
 func _reset_for_next_car() -> void:

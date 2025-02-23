@@ -13,6 +13,9 @@ var canDrag = true
 
 var start_pos: Vector2
 
+@export var audio_player: AudioStreamPlayer2D
+var click_sfx = preload("res://audio/click.mp3")
+
 
 func _ready() -> void:
 	start_pos = position
@@ -34,6 +37,9 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and (fromCar or (!removed_parts.get_node(NodePath(name)).visible) and !car.get_node("Car Pieces").get_node(NodePath(name)).visible):
 			if event.pressed and not main.dragging:
 				if get_rect().has_point(to_local(event.position)):
+					if not audio_player.playing:
+						audio_player.stream = click_sfx
+						audio_player.play()
 					dragging = true
 					main.dragging = true
 					drag_offset = get_global_mouse_position() - global_position
@@ -47,4 +53,7 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and dragging:
 		set_global_position(get_global_mouse_position() - drag_offset);
 		if (global_position.distance_to(car.get_node("Car Pieces").get_node(markerName).global_position) < 10):
+			if not audio_player.playing:
+				audio_player.stream = click_sfx
+				audio_player.play()
 			set_global_position(car.get_node("Car Pieces").get_node(markerName).global_position)

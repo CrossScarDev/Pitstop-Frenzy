@@ -9,6 +9,9 @@ var drag_offset: Vector2
 
 var start_pos: Vector2
 
+@export var audio_player: AudioStreamPlayer2D
+var gas_sfx = preload("res://audio/gas.mp3")
+
 
 func _ready() -> void:
 	start_pos = position
@@ -17,8 +20,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if $Marker2D.global_position.distance_to(car.get_node("Gas Valve").global_position) < 15 and dragging:
 		car.gas += delta * 10
+		if car.gas < 100:
+			if not audio_player.playing:
+				audio_player.stream = gas_sfx
+				audio_player.play()
+		elif audio_player.stream == gas_sfx:
+			audio_player.stop()
 		if car.gas > 100:
 			car.gas = 100
+	elif audio_player.stream == gas_sfx:
+			audio_player.stop()
 	
 	var progress: ProgressBar = overlay.get_node("Progress")
 	progress.value = car.gas
