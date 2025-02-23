@@ -32,7 +32,7 @@ jobs:
       - name: Add coi-service-worker
         run: |
           git clone https://github.com/gzuidhof/coi-serviceworker.git
-          mv coi-serviceworker/coi-serviceworker.js build/web/coi-serviceworker.js
+          mv coi-serviceworker/coi-serviceworker.js bin/web/coi-serviceworker.js
           sed -i '3 i <script src="coi-serviceworker.js"></script>' bin/web/index.html
       - name: Deploy
         uses: actions/deploy-pages@v4
