@@ -16,6 +16,11 @@ var increment_timer = true
 var score: int = 0
 
 
+func _ready() -> void:
+	timer.max_value = Global.timer_length
+	timer.value = Global.timer_length
+
+
 func _process(delta: float) -> void:
 	if increment_timer:
 		timer.value -= delta

@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://tq0c4pn8c6tr"]
+
+[ext_resource type="Texture2D" uid="uid://d2d0tj6v0syld" path="res://assets/difficulty.png" id="1_coqwb"]
+[ext_resource type="Script" path="res://scripts/difficulty.gd" id="1_uqums"]
+[ext_resource type="Texture2D" uid="uid://qkyuf36oegck" path="res://assets/easy.png" id="2_3kgur"]
+[ext_resource type="Texture2D" uid="uid://q4n0skbl55qi" path="res://assets/medium.png" id="3_ocyx6"]
+[ext_resource type="Texture2D" uid="uid://doy7aanm4ffl5" path="res://assets/hard.png" id="4_qin13"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uqums")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1157.0
+offset_bottom = 651.0
+color = Color(0, 0, 0, 1)
+
+[node name="Difficulty" type="Sprite2D" parent="."]
+position = Vector2(626, 235)
+scale = Vector2(0.35463, 0.35463)
+texture = ExtResource("1_coqwb")
+
+[node name="Easy" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 253.0
+offset_right = 1207.0
+offset_bottom = 543.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("2_3kgur")
+
+[node name="Medium" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 541.0
+offset_top = 349.0
+offset_right = 1181.0
+offset_bottom = 635.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("3_ocyx6")
+
+[node name="Hard" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 532.0
+offset_top = 438.0
+offset_right = 1221.0
+offset_bottom = 745.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_qin13")
+
+[connection signal="pressed" from="Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="Hard" to="." method="_on_hard_pressed"]
