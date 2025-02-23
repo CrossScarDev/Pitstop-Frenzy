@@ -6,13 +6,17 @@ env:
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -39,7 +43,9 @@ jobs:
           git clone https://github.com/gzuidhof/coi-serviceworker.git
           mv coi-serviceworker/coi-serviceworker.js bin/web/coi-serviceworker.js
           sed -i '3 i <script src="coi-serviceworker.js"></script>' bin/web/index.html
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - name: Deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./bin/web
