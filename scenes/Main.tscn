@@ -168,6 +168,7 @@ theme_override_font_sizes/font_size = 20
 text = "Score: 0"
 
 [node name="HighScore" type="Label" parent="Overlay"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 107.0
 offset_right = 137.0

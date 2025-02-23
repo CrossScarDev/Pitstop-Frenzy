@@ -21,8 +21,19 @@ var new_high_score = false
 @export var audio_player: AudioStreamPlayer2D
 var explosion_sfx = preload("res://audio/explosion.mp3")
 
+var car_textures: Array[Texture2D]
+
 
 func _ready() -> void:
+	car_textures = [
+		load("res://assets/car.webp"),
+		load("res://assets/car-green.webp"),
+		load("res://assets/car-purple.webp"),
+		load("res://assets/car-yellow.webp"),
+		load("res://assets/car-red.webp")
+	]
+	(car.get_node("Texture") as Sprite2D).texture =  car_textures[int(randf_range(0, car_textures.size()))]
+	
 	timer.max_value = Global.timer_length
 	timer.value = Global.timer_length
 	
@@ -118,6 +129,7 @@ func _reset_for_next_car() -> void:
 	car.gas = 0
 	car.position.x = -825
 	car.velocity = 0
+	(car.get_node("Texture") as Sprite2D).texture =  car_textures[int(randf_range(0, car_textures.size()))]
 	gas_can.position = gas_can.start_pos
 	for replacement in replacements.get_children():
 		replacement.position = replacement.start_pos
