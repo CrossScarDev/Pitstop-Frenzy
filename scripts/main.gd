@@ -51,7 +51,7 @@ func _on_car_check_and_reset() -> void:
 	if not all_visible or not all_replacements_used or car.gas < 80:
 		death("The Car Exploded")
 	else:
-		score += ceil(timer.value)
+		score += round(timer.value)
 		score_label.text = "Score: " + str(score)
 	
 	$reset_timer.timeout.connect(_reset_for_next_car)
