@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5nqksdd7i5s3"]
+
+[ext_resource type="Script" path="res://scripts/title.gd" id="1_b4fp1"]
+[ext_resource type="Texture2D" uid="uid://i1q2ie0oo5mc" path="res://assets/title.png" id="1_p0n74"]
+[ext_resource type="Texture2D" uid="uid://cq4fmfe0vhmwh" path="res://assets/go_button.webp" id="2_kvt78"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b4fp1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(579.556, 327)
+scale = Vector2(0.603704, 0.603704)
+texture = ExtResource("1_p0n74")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 564.0
+offset_top = 378.0
+offset_right = 732.0
+offset_bottom = 434.0
+scale = Vector2(0.75, 0.75)
+texture_normal = ExtResource("2_kvt78")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_go_button_pressed"]
