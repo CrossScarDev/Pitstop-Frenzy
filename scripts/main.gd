@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Next Car") and not explosion.visible:
 		car.nextCar = true
+		increment_timer = false
 		for replacement in replacements.get_children():
 			if (replacement.global_position.distance_to(car.get_node("Car Pieces").get_node(replacement.markerName).global_position) < 10):
 				car.get_node("Car Pieces").get_node(replacement.markerName).visible = true
@@ -32,8 +33,6 @@ func _process(delta: float) -> void:
 
 
 func _on_car_check_and_reset() -> void:
-	increment_timer = false
-	
 	var all_visible = true
 	for piece in car.get_node("Car Pieces").get_children():
 		if not piece.visible:
