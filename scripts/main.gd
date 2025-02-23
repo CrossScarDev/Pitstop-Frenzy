@@ -7,21 +7,26 @@ extends Node2D
 @export var death_screen: Control
 @export var gas_can: Sprite2D
 @export var timer: TextureProgressBar
+@export var score_label: Label
 
 var dragging = false
 
 var increment_timer = true
 
+var score: int = 0
+
 
 func _process(delta: float) -> void:
 	if increment_timer:
-		timer.value += delta
-		if timer.value >= timer.max_value:
-			death("You Ran Out of Time\nYou Failed")
+		timer.value -= delta
+		if timer.value <= 0:
+			death("You Ran Out of Time")
 	
 	if Input.is_action_just_pressed("Next Car") and not explosion.visible:
 		car.nextCar = true
 		increment_timer = false
+		score += ceil(timer.value)
+		score_label.text = "Score: " + str(score)
 		for replacement in replacements.get_children():
 			if (replacement.global_position.distance_to(car.get_node("Car Pieces").get_node(replacement.markerName).global_position) < 10):
 				car.get_node("Car Pieces").get_node(replacement.markerName).visible = true
@@ -46,7 +51,7 @@ func _on_car_check_and_reset() -> void:
 			break
 	
 	if not all_visible or not all_replacements_used or car.gas < 80:
-		death("The Car Exploded\nYou Failed")
+		death("The Car Exploded")
 	
 	$reset_timer.timeout.connect(_reset_for_next_car)
 	$reset_timer.set_wait_time(1.0)
@@ -58,7 +63,7 @@ func _on_car_check_and_reset() -> void:
 
 func death(message: String) -> void:
 	set_process(false)
-	death_screen.get_node("Message").text = message
+	death_screen.get_node("Message").text = message + "\nYour Score: " + str(score)
 	
 	explosion.visible = true
 	explosion.sprite_frames.set_animation_loop("default", false)
@@ -67,7 +72,8 @@ func death(message: String) -> void:
 
 
 func _reset_for_next_car() -> void:
-	timer.value = 0
+	timer.value = timer.max_value
+	increment_timer = true
 	car.gas = 0
 	car.position.x = -825
 	car.velocity = 0
