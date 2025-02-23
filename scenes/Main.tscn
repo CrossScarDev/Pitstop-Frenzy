@@ -98,7 +98,7 @@ removed_parts = NodePath("..")
 trash_can = NodePath("../../Trashcan")
 main = NodePath("../..")
 
-[node name="death_timer" type="Timer" parent="."]
+[node name="reset_timer" type="Timer" parent="."]
 
 [node name="Gas Can" type="Sprite2D" parent="." node_paths=PackedStringArray("car", "overlay", "main")]
 position = Vector2(451, 100)

@@ -17,8 +17,8 @@ var start_pos: Vector2
 func _ready() -> void:
 	start_pos = position
 
-func _process(_delta: float) -> void:
-	if !canDrag:
+func _process(delta: float) -> void:
+	if not canDrag:
 		return
 	
 	if fromCar:
@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 			global_position = car.get_node("Car Pieces").get_node(NodePath(name)).global_position
 
 func _input(event: InputEvent) -> void:
-	if !canDrag:
+	if not canDrag:
 		return
 	
 	if event is InputEventMouseButton:

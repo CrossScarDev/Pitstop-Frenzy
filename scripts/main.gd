@@ -42,13 +42,10 @@ func _on_car_check_and_reset() -> void:
 		explosion.play()
 		explosion.animation_finished.connect(_explosion_animation_finished)
 	
-	$death_timer.timeout.connect(_reset_for_next_car)
-	$death_timer.set_wait_time(1.0)
-	$death_timer.set_one_shot(true)
-	$death_timer.start()
-	
-	for part in removed_parts.get_children():
-		part.canDrag = true
+	$reset_timer.timeout.connect(_reset_for_next_car)
+	$reset_timer.set_wait_time(1.0)
+	$reset_timer.set_one_shot(true)
+	$reset_timer.start()
 	
 	car.nextCar = false
 
@@ -61,6 +58,10 @@ func _reset_for_next_car() -> void:
 	for replacement in replacements.get_children():
 		replacement.position = replacement.start_pos
 		replacement.visible = true
+	for piece in car.get_node("Car Pieces").get_children():
+		piece.visible = true
+	for part in removed_parts.get_children():
+		part.canDrag = true
 
 
 func _explosion_animation_finished() -> void:
