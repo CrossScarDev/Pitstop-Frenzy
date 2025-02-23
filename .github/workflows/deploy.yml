@@ -45,7 +45,10 @@ jobs:
           sed -i '3 i <script src="coi-serviceworker.js"></script>' bin/web/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Deploy
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./bin/web
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
