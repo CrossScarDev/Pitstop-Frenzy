@@ -19,7 +19,7 @@ var click_sfx = preload("res://audio/click.mp3")
 func _ready() -> void:
 	start_pos = position
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not canDrag:
 		return
 	

@@ -138,6 +138,8 @@ func _reset_for_next_car() -> void:
 		piece.visible = true
 	for part in removed_parts.get_children():
 		part.canDrag = true
+	
+	$reset_timer.timeout.disconnect(_reset_for_next_car)
 
 
 func _explosion_animation_finished() -> void:
